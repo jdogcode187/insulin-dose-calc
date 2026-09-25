@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#2563eb">
+<title>Insulin Dose Calculator</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Insulin Dose Calculator</h1>
+  </header>
+
+  <p class="disclaimer">
+    This tool applies a dosing formula you provided and is <strong>not a substitute for
+    professional medical advice</strong>. Confirm this approach with your healthcare
+    provider, and double-check every result before injecting.
+  </p>
+
+  <main id="calc-view">
+    <form id="dose-form" novalidate>
+      <label for="carbs-input">Total Carbs in Meal (g)</label>
+      <input type="number" id="carbs-input" name="carbs" inputmode="decimal" step="1" min="0" placeholder="e.g. 60" autocomplete="off">
+
+      <label for="bg-input">Blood Glucose Level (mg/dL)</label>
+      <small class="field-hint">Used only to calculate the bolus (correction) dose.</small>
+      <input type="number" id="bg-input" name="bg" inputmode="decimal" step="1" min="0" placeholder="e.g. 180" autocomplete="off">
+      <button type="submit">Calculate</button>
+    </form>
+
+    <p id="error-message" class="error" hidden></p>
+
+    <section id="result" hidden aria-live="polite">
+      <div class="result-row">
+        <span class="result-label">Base units</span>
+        <span id="result-base" class="result-value">-</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Bolus units</span>
+        <span id="result-bolus" class="result-value">-</span>
+      </div>
+      <div class="result-row result-total">
+        <span class="result-label">Total units</span>
+        <span id="result-total" class="result-value">-</span>
+      </div>
+    </section>
+
+    <button id="view-log-btn" type="button" class="secondary-btn">View Log</button>
+  </main>
+
+  <main id="log-view" hidden>
+    <div class="log-header">
+      <h2>Calculation Log</h2>
+      <button id="back-btn" type="button" class="secondary-btn">Back</button>
+    </div>
+    <p id="log-empty" hidden>No calculations logged yet.</p>
+    <div id="log-table-wrap">
+      <table id="log-table">
+        <thead>
+          <tr>
+            <th>Date/Time</th>
+            <th>Carbs</th>
+            <th>BG</th>
+            <th>Base</th>
+            <th>Bolus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="log-table-body"></tbody>
+      </table>
+    </div>
+    <button id="clear-log-btn" type="button" class="danger-btn">Clear Log</button>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
